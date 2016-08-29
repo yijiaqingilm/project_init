@@ -1,22 +1,25 @@
-// Generated on 2016-08-16 using generator-angular 0.15.1
+// Generated on 2016-08-15 using generator-angular 0.15.1
 'use strict';
 
 var gulp = require('gulp');
-/*var postcss = require('gulp-postcss');*/
-var px2rem = require('gulp-px3rem');
 var $ = require('gulp-load-plugins')();
 var openURL = require('open');
 var lazypipe = require('lazypipe');
 var rimraf = require('rimraf');
 var wiredep = require('wiredep').stream;
 var runSequence = require('run-sequence');
-var browserSync = require('browser-sync').create();
+var px2rem = require('gulp-px3rem');
 var sass = require("gulp-sass");
+var browserSync = require('browser-sync').create();
 var proxyMiddleware = require('http-proxy-middleware');
-var proxy = proxyMiddleware(['/user', '/passport'], {
-	target: 'http://www.indmen.com',
-	changeOrigin: true
-});
+var proxy = proxyMiddleware(['/user','/passport'], {target: 'http://www.indmen.com', changeOrigin: true});
+px2rem({
+	baseDpr: 2, // base device pixel ratio (default: 2)
+	threeVersion: false, // whether to generate @1x, @2x and @3x version (default: false)
+	remVersion: true, // whether to generate rem version (default: true)
+	remUnit: 75, // rem unit value (default: 75)
+	remPrecision: 6 // rem precision (default: 6)
+})
 
 var yeoman = {
 	app: require('./bower.json').appPath || 'app',
@@ -24,9 +27,9 @@ var yeoman = {
 };
 
 var paths = {
-	scripts: [yeoman.app + '/scripts/**/*.js', yeoman.app + '/bower_components/**/*.js'],
+	scripts: [yeoman.app + '/scripts/**/*.js'],
+	styles: [yeoman.app + '/styles/**/*.css'],
 	sass: [yeoman.app + '/sass/**/*.scss'],
-	styles: [yeoman.app + '/styles/**/*.css', yeoman.app + '/bower_components/**/*.css'],
 	test: ['test/spec/**/*.js'],
 	testRequire: [
 		yeoman.app + '/bower_components/angular/angular.js',
@@ -81,7 +84,8 @@ gulp.task('start:client', ['start:server', 'styles'], function() {
 
 gulp.task('start:server', function() {
 	$.connect.server({
-		root: [yeoman.app, '.tmp'],
+		/*yeoman.app*/
+		root: ['/', '.tmp'],
 		livereload: true,
 		// Change this to '0.0.0.0' to access the server from outside.
 		port: 9000
@@ -118,30 +122,17 @@ gulp.task('watch', function() {
 	gulp.watch('bower.json', ['bower']);
 });
 
-gulp.task("server-syn", function() {
-	var files = [
-		'**/*.html',
-		'**/*.css',
-		'**/*.js'
-	];
-	browserSync.init(files, {
-		server: "./",
-		middleware: [proxy]
-	});
-})
-gulp.task("dist-syn", function() {
-	var files = [
-		'**/*.html',
-		'**/*.css',
-		'**/*.js'
-	];
-	browserSync.init(files, {
-		server: "./dist"
-	});
-	gulp.watch(paths.sass, ['sass']);
-})
-gulp.task('serve', function(cb) {
+gulp.task('sass', function() {
+	return gulp.src(paths.sass)
+		.pipe(sass.sync().on('error', sass.logError))
+		.pipe(gulp.dest(yeoman.app + '/styles'));
+});
 
+gulp.task('sass:watch', function() {
+	gulp.watch(paths.sass, ['sass']);
+});
+
+gulp.task('serve', function(cb) {
 	runSequence('clean:tmp', ['lint:scripts'], ['start:client'],
 		'watch', cb);
 });
@@ -184,6 +175,7 @@ gulp.task('clean:dist', function(cb) {
 gulp.task('client:build', ['html', 'styles'], function() {
 	var jsFilter = $.filter('**/*.js');
 	var cssFilter = $.filter('**/*.css');
+
 	return gulp.src(paths.views.main)
 		.pipe($.useref({
 			searchPath: [yeoman.app, '.tmp']
@@ -193,12 +185,13 @@ gulp.task('client:build', ['html', 'styles'], function() {
 		.pipe($.uglify())
 		.pipe(jsFilter.restore())
 		.pipe(cssFilter)
-		.pipe(px2rem()) //rem
+		.pipe(px2rem())
 		.pipe($.minifyCss({
 			cache: true
 		}))
 		.pipe(cssFilter.restore())
-		/*	.pipe($.rev())*/ // 加md5 后缀
+		/*.pipe($.rev())*/
+		.pipe($.revReplace())
 		.pipe(gulp.dest(yeoman.dist));
 });
 
@@ -229,22 +222,25 @@ gulp.task('copy:fonts', function() {
 		.pipe(gulp.dest(yeoman.dist + '/fonts'));
 });
 
-gulp.task('sass', function() {
-	return gulp.src(paths.sass)
-		.pipe(sass.sync().on('error', sass.logError))
-		.pipe(gulp.dest(yeoman.app + '/styles'));
-});
-
-gulp.task('sass:watch', function() {
-	gulp.watch(paths.sass, ['sass']);
-});
-
 gulp.task('build', ['clean:dist'], function() {
 	runSequence(['images', 'copy:extras', 'copy:fonts', 'client:build']);
 });
-gulp.task('px2rem', function() {
-	gulp.src('./*.css')
-		.pipe(px2rem())
-		.pipe(gulp.dest('./dest'))
-});
+
 gulp.task('default', ['build']);
+
+gulp.task('server-sync', function() {
+	browserSync.init({
+		server: {
+			 baseDir: './',
+			 middleware: [proxy]
+		},
+		files: [
+			yeoman.app + '/**/*.css',
+			yeoman.app + '/**/*.js'
+		]
+		
+	});
+
+	gulp.watch(paths.sass, ['sass']);
+	gulp.watch(paths + "/**/*/*.html").on('change', browserSync.reload);
+});
