@@ -61,6 +61,9 @@ app.config(function($routeProvider) {
 		}).state("toggle",{
 			url:'/toggle',
 			templateUrl:'views/toggle.html'
+		}).state("overlay",{
+			url:'/overlay',
+			templateUrl:'views/overlay.html'
 		});
 
 	}]);
