@@ -10,7 +10,7 @@ commonModule.config(["$provide", function($provide) {
 		}
 		return userINfo;
 	}]);
-
+	
 	$provide.service("getJsonService", ["$http", "$q", function($http, $q) {
 		return {
 			query: function() {

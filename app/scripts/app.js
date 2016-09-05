@@ -14,7 +14,6 @@ var app = angular
 		'ui.router',
 		'mobile-angular-ui',
 		"commonModule"
-
 	]);
 app.config(function($routeProvider) {
 		/*$routeProvider
@@ -32,11 +31,13 @@ app.config(function($routeProvider) {
 				redirectTo: '/'
 			});*/
 	})
-	.run(["$rootScope", "$state", "$urlRouter", function($rootScope, $state, $urlRouter) {
+	.run(["$rootScope", "$state", "$urlRouter","$stateParams", function($rootScope, $state, $urlRouter,$stateParams) {
 		console.log("run ...")
 		console.log($rootScope);
 		console.log($state)
 		console.log($urlRouter);
+		console.log($stateParams);
+		$rootScope.$stateParams=$stateParams;
 
 	}])
 	.config(["$stateProvider", "$urlRouterProvider", function($stateProvider, $urlRouterProvider) {
@@ -62,8 +63,8 @@ app.config(function($routeProvider) {
 			url:'/toggle',
 			templateUrl:'views/toggle.html'
 		}).state("overlay",{
-			url:'/overlay',
-			templateUrl:'views/overlay.html'
+			url:'/overlay/{id}/{name}',
+			templateUrl:'views/overlay.html',
+			controller:'overlayCtrl'
 		});
-
 	}]);

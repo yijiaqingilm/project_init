@@ -237,7 +237,8 @@ gulp.task('server-sync', function() {
 		files: [
 			yeoman.app + '/**/*.css',
 			yeoman.app + '/**/*.js',
-			yeoman.app+'/**/*.html'
+			yeoman.app+'/**/*.html',
+			yeoman.app+'/**/*/*.html'
 		]
 		
 	});
