@@ -37,8 +37,6 @@ app.config(function($routeProvider) {
 		console.log($state)
 		console.log($urlRouter);
 		console.log($stateParams);
-		$rootScope.$stateParams=$stateParams;
-
 	}])
 	.config(["$stateProvider", "$urlRouterProvider", function($stateProvider, $urlRouterProvider) {
 		$urlRouterProvider.otherwise("/index");
@@ -66,5 +64,8 @@ app.config(function($routeProvider) {
 			url:'/overlay/{id}/{name}',
 			templateUrl:'views/overlay.html',
 			controller:'overlayCtrl'
+		}).state("forms",{
+			url:'/forms',
+			templateUrl:'views/forms.html'
 		});
 	}]);
