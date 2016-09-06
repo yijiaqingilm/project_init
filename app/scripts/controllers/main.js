@@ -2,7 +2,6 @@
 (function() {
 	/*var mainModule = angular.module("angularMobileApp", []);*/
 	app.controller("mainCtrl", ["$scope", "$timeout", "testService", "getJsonService", "SharedState", mainCtrl]);
-
 	function mainCtrl($scope, $timeout, testService, getJsonService, SharedState) {
 		console.log("this is main ctrl");
 		console.log(testService.name);

@@ -37,6 +37,8 @@ app.config(function($routeProvider) {
 		console.log($state)
 		console.log($urlRouter);
 		console.log($stateParams);
+		console.log("xx");
+		
 	}])
 	.config(["$stateProvider", "$urlRouterProvider", function($stateProvider, $urlRouterProvider) {
 		$urlRouterProvider.otherwise("/index");
@@ -67,5 +69,9 @@ app.config(function($routeProvider) {
 		}).state("forms",{
 			url:'/forms',
 			templateUrl:'views/forms.html'
+		}).state('flex',{
+			url:'/flex',
+			templateUrl:'views/flex.html',
+			controller:'flexCtrl'
 		});
 	}]);
