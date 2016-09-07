@@ -21,7 +21,7 @@
 		<div class="box">
 
 			<div class="item"><img src="images/yeoman.png"></div>
-			<div class="item">xxxxssssssssssssssssssssssssssssss</div>
+			<div class="item">xxxxsssss</div>
 			<!--<div class="item">6</div>
 			<div class="item">7</div>
 			<div class="item">8</div>
@@ -29,10 +29,17 @@
 			<div class="item">10</div>
 			<div class="item">11</div>-->
 
-		</div>
+		</div>{{flexCtrl}} xxx
 		<div>{{msg}}</div>
 		<div>
 			<div class="" ng-click="testClick()">click me</div>
+		</div>
+		<div drag-to-dismiss="deleteNotice(1)">del 1</div>
+
+		<div drag-to-dismiss="deleteNotice(2)">del 2</div>
+		
+		<div ng-repeat="info in list track by $index">
+			<div drag-to-dismiss="deleteNotice($index)">{{info}}  {{$index}}</div>
 		</div>
 	</div>
 	<div class="scrollable-footer"></div>

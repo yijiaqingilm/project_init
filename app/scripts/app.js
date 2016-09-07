@@ -13,7 +13,9 @@ var app = angular
 		'ngRoute',
 		'ui.router',
 		'mobile-angular-ui',
+		'mobile-angular-ui.gestures',
 		"commonModule"
+		
 	]);
 app.config(function($routeProvider) {
 		/*$routeProvider
@@ -31,17 +33,14 @@ app.config(function($routeProvider) {
 				redirectTo: '/'
 			});*/
 	})
-	.run(["$rootScope", "$state", "$urlRouter","$stateParams", function($rootScope, $state, $urlRouter,$stateParams) {
+	.run(["$rootScope", "$state", "$urlRouter", "$stateParams","$templateCache", function($rootScope, $state, $urlRouter, $stateParams,$templateCache) {
 		console.log("run ...")
-		console.log($rootScope);
-		console.log($state)
-		console.log($urlRouter);
-		console.log($stateParams);
-		console.log("xx");
+		$templateCache.put("hello.html","<div>this is hello .html</div>");
 		
+
 	}])
 	.config(["$stateProvider", "$urlRouterProvider", function($stateProvider, $urlRouterProvider) {
-		$urlRouterProvider.otherwise("/index");
+		$urlRouterProvider.otherwise("/404");
 		$stateProvider.state("home", {
 			url: '/home',
 			templateUrl: 'views/main.html'
@@ -59,19 +58,24 @@ app.config(function($routeProvider) {
 			url: '/iscoll',
 			templateUrl: 'views/iscoll.html',
 			controller: 'mainCtrl'
-		}).state("toggle",{
-			url:'/toggle',
-			templateUrl:'views/toggle.html'
-		}).state("overlay",{
-			url:'/overlay/{id}/{name}',
-			templateUrl:'views/overlay.html',
-			controller:'overlayCtrl'
-		}).state("forms",{
-			url:'/forms',
-			templateUrl:'views/forms.html'
-		}).state('flex',{
-			url:'/flex',
-			templateUrl:'views/flex.html',
+		}).state("toggle", {
+			url: '/toggle',
+			templateUrl: 'views/toggle.html'
+		}).state("overlay", {
+			url: '/overlay/{id}/{name}',
+			templateUrl: 'views/overlay.html',
+			controller: 'overlayCtrl'
+		}).state("forms", {
+			url: '/forms',
+			templateUrl: 'views/forms.html',
 			controller:'flexCtrl'
+		}).state('flex', {
+			url: '/flex',
+			templateUrl: 'views/flex.html',
+			controller: 'flexCtrl'
+		}).state('404',{
+			url:'/404',
+			templateUrl:'404.html'
 		});
 	}]);
+
