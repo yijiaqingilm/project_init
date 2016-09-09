@@ -14,8 +14,11 @@ var app = angular
 		'ui.router',
 		'mobile-angular-ui',
 		'mobile-angular-ui.gestures',
+		"ngAnimate",
+		"ngTouch",
+		'ui.bootstrap',
 		"commonModule"
-		
+
 	]);
 app.config(function($routeProvider) {
 		/*$routeProvider
@@ -33,10 +36,9 @@ app.config(function($routeProvider) {
 				redirectTo: '/'
 			});*/
 	})
-	.run(["$rootScope", "$state", "$urlRouter", "$stateParams","$templateCache", function($rootScope, $state, $urlRouter, $stateParams,$templateCache) {
+	.run(["$rootScope", "$state", "$urlRouter", "$stateParams", "$templateCache", function($rootScope, $state, $urlRouter, $stateParams, $templateCache) {
 		console.log("run ...")
-		$templateCache.put("hello.html","<div>this is hello .html</div>");
-		
+		$templateCache.put("hello.html", "<div>this is hello .html</div>");
 
 	}])
 	.config(["$stateProvider", "$urlRouterProvider", function($stateProvider, $urlRouterProvider) {
@@ -62,20 +64,26 @@ app.config(function($routeProvider) {
 			url: '/toggle',
 			templateUrl: 'views/toggle.html'
 		}).state("overlay", {
-			url: '/overlay/{id}/{name}',
+			url: '/overlay',
 			templateUrl: 'views/overlay.html',
 			controller: 'overlayCtrl'
 		}).state("forms", {
 			url: '/forms',
 			templateUrl: 'views/forms.html',
-			controller:'flexCtrl'
+			controller: 'flexCtrl'
 		}).state('flex', {
 			url: '/flex',
 			templateUrl: 'views/flex.html',
 			controller: 'flexCtrl'
-		}).state('404',{
-			url:'/404',
-			templateUrl:'404.html'
+		}).state('404', {
+			url: '/404',
+			templateUrl: '404.html'
+		}).state('carousel', {
+			url: '/carousel',
+			templateUrl: 'views/carousel_tep.html',
+			controller: 'carouselCtrl'
+		}).state("modal", {
+			url: '/modal',
+			templateUrl: 'views/modal.html'
 		});
 	}]);
-
