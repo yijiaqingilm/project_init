@@ -1,7 +1,5 @@
 (function() {
-	app.controller("ModalCtrl", ["$scope", "$uibModal", "$log", ModalCtrl]);
-
-	function ModalCtrl($scope, $uibModal, $log) {
+	app.controller("ModalCtrl", ["$scope", "$uibModal", "$log", function($scope, $uibModal, $log) {
 		console.log("model ctrl");
 		var $ctrl = this;
 		console.log($ctrl);
@@ -54,7 +52,7 @@
 		$ctrl.toggleAnimation = function() {
 			$ctrl.animationsEnabled = !$ctrl.animationsEnabled;
 		};
-	}
+	}]);
 
 	app.controller('ModalInstanceCtrl', function($uibModalInstance, items) {
 		var $ctrl = this;

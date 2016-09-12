@@ -1,8 +1,6 @@
-"use strict";
 (function() {
 	/*var mainModule = angular.module("angularMobileApp", []);*/
-	app.controller("mainCtrl", ["$scope", "$timeout", "testService", "getJsonService", "SharedState", mainCtrl]);
-	function mainCtrl($scope, $timeout, testService, getJsonService, SharedState) {
+	app.controller("mainCtrl", ["$scope", "$timeout", "testService", "getJsonService", "SharedState", function($scope, $timeout, testService, getJsonService, SharedState) {
 		console.log("this is main ctrl");
 		console.log(testService.name);
 		$scope.demo = function() {
@@ -79,8 +77,8 @@
 		console.log(SharedState.eq("myId", "test"))
 
 		console.log(SharedState.values());
-		
-		SharedState.set("myId",false);
+
+		SharedState.set("myId", false);
 		$scope.$on('mobile-angular-ui.state.changed.myId', function(e, newVal, oldVal) {
 			console.log(e);
 			if(newVal === true) {
@@ -89,16 +87,15 @@
 				console.log('sidebar closed');
 			}
 		});
-		
-		console.log("==================");
-		SharedState.initialize($scope,"myId3");
-		SharedState.setOne("myId3","asdf")
-		console.log(SharedState.get("myId3"));
-		
-		$scope.outerClick=function(){
-			console.log("this is outer click ???")
-			;
-		}
 
-	}
-})()
+		console.log("==================");
+		SharedState.initialize($scope, "myId3");
+		SharedState.setOne("myId3", "asdf")
+		console.log(SharedState.get("myId3"));
+
+		$scope.outerClick = function() {
+			console.log("this is outer click ???");
+		}
+	}]);
+
+})();

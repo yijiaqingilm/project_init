@@ -39,6 +39,9 @@ app.config(function($routeProvider) {
 	.run(["$rootScope", "$state", "$urlRouter", "$stateParams", "$templateCache", function($rootScope, $state, $urlRouter, $stateParams, $templateCache) {
 		console.log("run ...")
 		$templateCache.put("hello.html", "<div>this is hello .html</div>");
+		var config = {};
+		config.server = location.protocol + '//' + location.host;
+		$rootScope.config=config;
 
 	}])
 	.config(["$stateProvider", "$urlRouterProvider", function($stateProvider, $urlRouterProvider) {

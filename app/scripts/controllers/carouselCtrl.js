@@ -1,7 +1,5 @@
 (function() {
-	app.controller("carouselCtrl", ["$scope", carouselCtrl]);
-
-	function carouselCtrl($scope) {
+	app.controller("carouselCtrl", ["$scope", "myAjax", function($scope, myAjax) {
 		console.log("this is carouselCtrl");
 		$scope.myInterval = 5000;
 		$scope.noWrapSlides = false;
@@ -58,5 +56,39 @@
 
 			return array;
 		}
-	}
+		console.log($scope.config);
+		$scope.config.squartList = $scope.config.server + '/user/square/getTop5'; //首页
+		myAjax.get($scope.config.squartList)
+		console.log("xxxxx");
+	}]);
+
 })();
+
+/*//接口url
+		var config = {};
+		config.server = location.protocol + '//' + location.host;
+		//会员广场
+		config.squartList = config.server + '/user/square/getTop5'; //首页
+		
+		config.aboutDesc = config.server + '/global/getRuleDesc';
+		config.acceptMsgList = config.server + '/user/msg/getReList'
+		$.ajax({
+			type: 'get',
+			dataType: 'json',
+			url: config.acceptMsgList,
+			global: false,
+			success: function(data) {
+				console.log(data);
+			}
+		});
+		//http://localhost:88/topic/getViewInfo?tId=390
+		var url=config.server+'/topic/getViewInfo?tId=390';
+		$.ajax({
+			type: 'get',
+			dataType: 'json',
+			url: url,
+			global: false,
+			success: function(data) {
+				console.log(data);
+			}
+		});*/

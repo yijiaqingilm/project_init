@@ -175,7 +175,11 @@ gulp.task('clean:dist', function(cb) {
 gulp.task('client:build', ['html', 'styles'], function() {
 	var jsFilter = $.filter('**/*.js');
 	var cssFilter = $.filter('**/*.css');
-
+	/*{
+        mangle: true,//类型：Boolean 默认：true 是否修改变量名
+        compress: true,//类型：Boolean 默认：true 是否完全压缩
+        preserveComments: 'all' //保留所有注释
+    })*/
 	return gulp.src(paths.views.main)
 		.pipe($.useref({
 			searchPath: [yeoman.app, '.tmp']

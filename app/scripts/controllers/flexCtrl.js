@@ -1,7 +1,5 @@
 (function() {
-	app.controller("flexCtrl", ["$scope", "$timeout", flexCtrl]);
-
-	function flexCtrl($scope, $timeout) {
+	app.controller("flexCtrl", ["$scope", "$timeout", function($scope, $timeout) {
 		console.log("this is flexCtrl");
 		console.log($scope);
 		var $ctrl = this;
@@ -40,12 +38,12 @@
 		$scope.getName = function() {
 			console.log($scope.userName);
 		}
-		$scope.ctrlFlavor="百事";
-		
-		$scope.sayHello=function(myName,Myage){
-			console.log("hello : "+myName,Myage);
+		$scope.ctrlFlavor = "百事";
+
+		$scope.sayHello = function(myName, Myage) {
+			console.log("hello : " + myName, Myage);
 		}
-	}
+	}]);
 
 	app.directive("dragToDismiss", function($drag, $timeout, $parse) {
 		return {
@@ -130,13 +128,13 @@
 
 	function drink() {
 		return {
-			restrict:'AE',
-			scope:{
-				flavor:'=',
-				greeting:'&'
+			restrict: 'AE',
+			scope: {
+				flavor: '=',
+				greeting: '&'
 			},
-			template:'<div><input ng-model="flavor"/>{{flavor}}换行<input ng-model="myName"/><input ng-model="age"/><input type="button" ng-click="greeting({name:myName,age:age})"/></div>',
-			link:function(scope,elm,attrs,supperScope){
+			template: '<div><input ng-model="flavor"/>{{flavor}}换行<input ng-model="myName"/><input ng-model="age"/><input type="button" ng-click="greeting({name:myName,age:age})"/></div>',
+			link: function(scope, elm, attrs, supperScope) {
 				console.log("drink link")
 				console.log(attrs.greeting);
 			}
