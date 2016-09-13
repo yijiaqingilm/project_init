@@ -1,5 +1,5 @@
 var commonModule = angular.module("commonModule", []);
-commonModule.config(["$provide","$httpProvider", function($provide,$httpProvider) {
+commonModule.config(["$provide", "$httpProvider", function($provide, $httpProvider) {
 	console.log("this is commonConfig")
 	$provide.factory("testService", ["$http", function($http) {
 		console.log("this is test server");
@@ -64,26 +64,32 @@ commonModule.config(["$provide","$httpProvider", function($provide,$httpProvider
 	$provide.service("httpInterceptor" ["$q", httpInterceptor]);
 
 	function httpInterceptor($q) {
+		
 		return {
-			'request':function(config){
+			'request': function(config) {
 				console.log(config);
 				console.log("this is  httpInterceptor");
+				layer.open({
+					type:2,
+					shadeClose:false
+				});
 				return config;
 			},
-			'requestError':function(rejection){
+			'requestError': function(rejection) {
 				console.log(rejection);
+				
 				console.log("this is httpInterceptor httpinterceptor rejection");
 				return $q.reject(rejection);
 			},
-			'response':function(response){
+			'response': function(response) {
 				console.log("this is httpInterceptor response response");
 				return response;
-				
+
 			},
-			'responseError':function(rejection){
+			'responseError': function(rejection) {
 				console.log("this is httpInterceptor responseError responseError");
 				console.log(rejection)
-				switch (rejection.status){
+				switch(rejection.status) {
 					case 404:
 						console.log("this is  404");
 						break;
@@ -92,10 +98,10 @@ commonModule.config(["$provide","$httpProvider", function($provide,$httpProvider
 				}
 				return $q.reject(rejection);
 			}
-			
+
 		}
 	}
-	
+
 	$httpProvider.interceptors.push(httpInterceptor);
 
 }]);
