@@ -69,10 +69,6 @@ commonModule.config(["$provide", "$httpProvider", function($provide, $httpProvid
 			'request': function(config) {
 				console.log(config);
 				console.log("this is  httpInterceptor");
-				layer.open({
-					type:2,
-					shadeClose:false
-				});
 				return config;
 			},
 			'requestError': function(rejection) {
