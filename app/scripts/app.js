@@ -17,7 +17,8 @@ var app = angular
 		"ngAnimate",
 		"ngTouch",
 		'ui.bootstrap',
-		"commonModule"
+		"commonModule",
+		"oc.lazyLoad"
 
 	]);
 app.config(function($routeProvider) {
@@ -88,9 +89,5 @@ app.config(function($routeProvider) {
 		}).state("modal", {
 			url: '/modal',
 			templateUrl: 'views/modal.html'
-		}).state("profile",{
-			url:'/profile',
-			templateUrl:'views/profile/profile.html',
-			controller:'profileController'
-		});
+		})
 	}]);

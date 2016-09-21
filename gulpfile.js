@@ -27,8 +27,8 @@ var yeoman = {
 };
 
 var paths = {
-	scripts: [yeoman.app + '/scripts/**/*.js',yeoman.app+'/views/**/*/*.js'],
-	styles: [yeoman.app + '/styles/**/*.css'],
+	scripts: [yeoman.app + '/scripts/**/*.js',yeoman.app+'/views/**/*.js'],
+	styles: [yeoman.app + '/styles/**/*.css',yeoman.app+'/views/**/*.css'],
 	sass: [yeoman.app + '/sass/**/*.scss'],
 	test: ['test/spec/**/*.js'],
 	testRequire: [
@@ -200,7 +200,8 @@ gulp.task('client:build', ['html', 'styles'], function() {
 });
 
 gulp.task('html', function() {
-	return gulp.src(yeoman.app + '/views/**/*')
+	var html=[yeoman.app + '/views/**/*'];
+	return gulp.src(html)
 		.pipe(gulp.dest(yeoman.dist + '/views'));
 });
 
@@ -248,5 +249,5 @@ gulp.task('server-sync', function() {
 	});
 
 	gulp.watch(paths.sass, ['sass']);
-	gulp.watch(paths + "/**/*/*.html").on('change', browserSync.reload);
+	//gulp.watch(paths + "/**/*/*.html").on('change', browserSync.reload);
 });
