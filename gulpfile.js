@@ -180,6 +180,7 @@ gulp.task('client:build', ['html', 'styles'], function() {
         compress: true,//类型：Boolean 默认：true 是否完全压缩
         preserveComments: 'all' //保留所有注释
     })*/
+   	runSequence("view_style");
 	return gulp.src(paths.views.main)
 		.pipe($.useref({
 			searchPath: [yeoman.app, '.tmp']
@@ -198,11 +199,40 @@ gulp.task('client:build', ['html', 'styles'], function() {
 		.pipe($.revReplace())
 		.pipe(gulp.dest(yeoman.dist));
 });
+gulp.task('view_style', function() {
+	var jsFilter = $.filter('**/*.js');
+	var cssFilter = $.filter('**/*.css');
+	/*{
+        mangle: true,//类型：Boolean 默认：true 是否修改变量名
+        compress: true,//类型：Boolean 默认：true 是否完全压缩
+        preserveComments: 'all' //保留所有注释
+    })*/
+   var styleUrl=[yeoman.app + '/views/**/*.css',yeoman.app + '/views/**/*.js'];
+   var destUrl="dist/views";
+	return gulp.src(styleUrl)
+		.pipe($.useref({
+			searchPath: [yeoman.app, '.tmp']
+		}))
+		.pipe(jsFilter)
+		.pipe($.ngAnnotate())
+		.pipe($.uglify())
+		.pipe(jsFilter.restore())
+		.pipe(cssFilter)
+		.pipe(px2rem())
+		.pipe($.minifyCss({
+			cache: true
+		}))
+		.pipe(cssFilter.restore())
+		/*.pipe($.rev())*/
+		.pipe($.revReplace())
+		.pipe(gulp.dest(destUrl));
+});
 
 gulp.task('html', function() {
-	var html=[yeoman.app + '/views/**/*'];
+	var html=[yeoman.app + '/views/**/*.html'];
 	return gulp.src(html)
 		.pipe(gulp.dest(yeoman.dist + '/views'));
+		
 });
 
 gulp.task('images', function() {

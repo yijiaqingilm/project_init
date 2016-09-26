@@ -10,7 +10,10 @@ app.config(["$stateProvider", "$urlRouterProvider", function($stateProvider, $ur
 					{type:'js',path:'views/profile/profile.controller.js'},
 					{type:'css',path:'views/profile/profile.css'}
 				]);
-			}]
+			}],
+			test:function(){
+				console.log("this  is   profile  test ")
+			}
 		}
 	});
 }]);
