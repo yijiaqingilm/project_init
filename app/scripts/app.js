@@ -81,7 +81,7 @@ app.config(function($routeProvider) {
 			controller: 'flexCtrl'
 		}).state('404', {
 			url: '/404',
-			templateUrl: '404.html'
+			templateUrl: 'views/404.html'
 		}).state('carousel', {
 			url: '/carousel',
 			templateUrl: 'views/carousel_tep.html',

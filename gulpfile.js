@@ -10,9 +10,13 @@ var wiredep = require('wiredep').stream;
 var runSequence = require('run-sequence');
 var px2rem = require('gulp-px3rem');
 var sass = require("gulp-sass");
+var compass = require('gulp-compass');
 var browserSync = require('browser-sync').create();
 var proxyMiddleware = require('http-proxy-middleware');
-var proxy = proxyMiddleware(['/user','/passport'], {target: 'http://www.indmen.com', changeOrigin: true});
+var proxy = proxyMiddleware(['/user', '/passport'], {
+	target: 'http://www.indmen.com',
+	changeOrigin: true
+});
 px2rem({
 	baseDpr: 2, // base device pixel ratio (default: 2)
 	threeVersion: false, // whether to generate @1x, @2x and @3x version (default: false)
@@ -27,9 +31,10 @@ var yeoman = {
 };
 
 var paths = {
-	scripts: [yeoman.app + '/scripts/**/*.js',yeoman.app+'/views/**/*.js'],
-	styles: [yeoman.app + '/styles/**/*.css',yeoman.app+'/views/**/*.css'],
+	scripts: [yeoman.app + '/scripts/**/*.js', yeoman.app + '/views/**/*.js'],
+	styles: [yeoman.app + '/styles/**/*.css', yeoman.app + '/views/**/*.css'],
 	sass: [yeoman.app + '/sass/**/*.scss'],
+	sass_view: [yeoman.app + "/views/**/*.scss"],
 	test: ['test/spec/**/*.js'],
 	testRequire: [
 		yeoman.app + '/bower_components/angular/angular.js',
@@ -125,11 +130,26 @@ gulp.task('watch', function() {
 gulp.task('sass', function() {
 	return gulp.src(paths.sass)
 		.pipe(sass.sync().on('error', sass.logError))
+		/*.pipe(compass({
+			config_file: './config.rb',
+			css: 'app/sass',
+			sass: 'sass'
+		}))*/
 		.pipe(gulp.dest(yeoman.app + '/styles'));
 });
+gulp.task('sass_view', function() {
+	return gulp.src(paths.sass_view)
+		.pipe(sass.sync().on('error', sass.logError))
+		.pipe(gulp.dest(yeoman.app + '/views'));
+});
+gulp.task('compass', function() {
+	gulp.src('./src/*.scss')
 
+	.pipe(gulp.dest('app/assets/temp'));
+});
 gulp.task('sass:watch', function() {
 	gulp.watch(paths.sass, ['sass']);
+	gulp.watch(paths.sass_view, ['sass_view']);
 });
 
 gulp.task('serve', function(cb) {
@@ -180,7 +200,7 @@ gulp.task('client:build', ['html', 'styles'], function() {
         compress: true,//类型：Boolean 默认：true 是否完全压缩
         preserveComments: 'all' //保留所有注释
     })*/
-   	runSequence("view_style");
+
 	return gulp.src(paths.views.main)
 		.pipe($.useref({
 			searchPath: [yeoman.app, '.tmp']
@@ -207,12 +227,9 @@ gulp.task('view_style', function() {
         compress: true,//类型：Boolean 默认：true 是否完全压缩
         preserveComments: 'all' //保留所有注释
     })*/
-   var styleUrl=[yeoman.app + '/views/**/*.css',yeoman.app + '/views/**/*.js'];
-   var destUrl="dist/views";
+	var styleUrl = [yeoman.app + '/views/**/*.css', yeoman.app + '/views/**/*.js'];
+	var destUrl = "dist/views";
 	return gulp.src(styleUrl)
-		.pipe($.useref({
-			searchPath: [yeoman.app, '.tmp']
-		}))
 		.pipe(jsFilter)
 		.pipe($.ngAnnotate())
 		.pipe($.uglify())
@@ -229,10 +246,10 @@ gulp.task('view_style', function() {
 });
 
 gulp.task('html', function() {
-	var html=[yeoman.app + '/views/**/*.html'];
+	var html = [yeoman.app + '/views/**/*.html'];
 	return gulp.src(html)
 		.pipe(gulp.dest(yeoman.dist + '/views'));
-		
+
 });
 
 gulp.task('images', function() {
@@ -258,7 +275,7 @@ gulp.task('copy:fonts', function() {
 });
 
 gulp.task('build', ['clean:dist'], function() {
-	runSequence(['images', 'copy:extras', 'copy:fonts', 'client:build']);
+	runSequence(['images', 'copy:extras', 'copy:fonts', 'client:build', 'view_style']);
 });
 
 gulp.task('default', ['build']);
@@ -266,18 +283,19 @@ gulp.task('default', ['build']);
 gulp.task('server-sync', function() {
 	browserSync.init({
 		server: {
-			 baseDir: './',
-			 middleware: [proxy]
+			baseDir: './',
+			middleware: [proxy]
 		},
 		files: [
 			yeoman.app + '/**/*.css',
 			yeoman.app + '/**/*.js',
-			yeoman.app+'/**/*.html',
-			yeoman.app+'/**/*/*.html'
+			yeoman.app + '/**/*.html',
+			yeoman.app + '/**/*/*.html'
 		]
-		
+
 	});
 
 	gulp.watch(paths.sass, ['sass']);
+	gulp.watch(paths.sass_view, ['sass_view']);
 	//gulp.watch(paths + "/**/*/*.html").on('change', browserSync.reload);
 });
