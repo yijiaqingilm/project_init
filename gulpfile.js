@@ -2,6 +2,7 @@
 'use strict';
 
 var gulp = require('gulp');
+var path = require('path')
 var $ = require('gulp-load-plugins')();
 var openURL = require('open');
 var lazypipe = require('lazypipe');
@@ -128,13 +129,15 @@ gulp.task('watch', function() {
 });
 
 gulp.task('sass', function() {
+	console.log(path);
 	return gulp.src(paths.sass)
 		.pipe(sass.sync().on('error', sass.logError))
-		/*.pipe(compass({
-			config_file: './config.rb',
-			css: 'app/sass',
-			sass: 'sass'
-		}))*/
+		.pipe(compass({
+			config_file: path.join(process.cwd(), 'config.rb'),
+			project: path.join(process.cwd(), '/app'),
+			css: yeoman.app+'/styles',
+			sass: yeoman.app+'/sass'
+		}))
 		.pipe(gulp.dest(yeoman.app + '/styles'));
 });
 gulp.task('sass_view', function() {
@@ -142,11 +145,7 @@ gulp.task('sass_view', function() {
 		.pipe(sass.sync().on('error', sass.logError))
 		.pipe(gulp.dest(yeoman.app + '/views'));
 });
-gulp.task('compass', function() {
-	gulp.src('./src/*.scss')
 
-	.pipe(gulp.dest('app/assets/temp'));
-});
 gulp.task('sass:watch', function() {
 	gulp.watch(paths.sass, ['sass']);
 	gulp.watch(paths.sass_view, ['sass_view']);
