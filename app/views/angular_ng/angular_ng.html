@@ -6,7 +6,7 @@
 	<div class="scrollable-content section">
 		<div id="div2" ng-controller="controller2">
 			??? {{name}}
-			<a >what??</a>
+			<a>what??</a>
 			<form action="" novalidate="novalidate">
 				<input type="text" ng-model="user.name" ng-maxlength="5" ng-trim="true" name="" id="" value="" />
 				<div>{{user.name}}</div>
@@ -15,6 +15,26 @@
 				<div><input type="date" /></div>
 				<div><input type="url" /></div>
 				<div><input type="week" /></div>
+
+				<div> 我来测试 ng if <input type="checkbox" ng-model="likes" ng-init="likes=true" />我的 爱好</div>
+				<div ng-if="likes">我来 看看 你的 爱好</div>
+				<div>我来 测试 ng list </div>
+				<div><input type="text" ng-model="arr" ng-list name="" id="" value="" /></div>
+				<div>{{arr}}</div>
+
+				<div>我来测试 ng nonbindable</div>
+				<div ng-non-bindable>{{arr}}</div>
+
+				<div>测试 ng open</div>
+				<details id="details" ng-open="likes">
+					<summary>Show/Hide me</summary>
+					<summary>Show/Hide m  sssdddde</summary>
+					<summary>3</summary>
+					<summary>34</summary>
+				</details>
+				<summary>Show/Hide me</summary>
+				<details id="details" ng-open="likes">
+				</details>
 			</form>
 		</div>
 	</div>

@@ -7,7 +7,7 @@
 	})
 	var angular_ng_controller=app.controller("angular_ng_controller",["$scope",function($scope){
 		console.log("this si angular ng controller");
-		$scope.arr=[];
+		$scope.arr=['123',"asdf"];
 		$scope.a=function(i,j){
 			console.log("xxxyyy");
 			console.log(i+j);
