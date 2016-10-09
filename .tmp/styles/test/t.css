@@ -1,9 +1,9 @@
-/* line 1, ../sass/test.scss */
+/* line 1, ../../sass/test/t.scss */
 .test {
   color: red;
 }
 
-/* line 5, ../sass/test.scss */
+/* line 5, ../../sass/test/t.scss */
 .lightbulb {
   border: 1px solid gold;
   /*no*/
@@ -12,13 +12,8 @@
   /*px*/
 }
 
-/* line 10, ../sass/test.scss */
+/* line 10, ../../sass/test/t.scss */
 .fs-12 {
   font-size: 12px;
   /*px*/
-}
-
-/* line 13, ../sass/test.scss */
-.t {
-  color: green;
 }

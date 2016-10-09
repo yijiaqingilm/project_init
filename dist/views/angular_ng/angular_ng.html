@@ -5,11 +5,8 @@
 	</div>
 	<div class="scrollable-content section">
 		<div id="div2" ng-controller="controller2">
-			<h1 class="slideInLeft bounce animated">Example</h1>
-			<div class="{{test_an}}">??? {{name}}</div>
-			<div ng-click="addAnimate()">出来</div>
+			??? {{name}}
 			<a>what??</a>
-			<div ng-click="go_anchor()">test_anchorScroll go go</div>
 			<form action="" novalidate="novalidate">
 				<input type="text" ng-model="user.name" ng-maxlength="5" ng-trim="true" name="" id="" value="" />
 				<div>{{user.name}}</div>
@@ -52,24 +49,9 @@
 						end {{obj}}
 					</div>
 				</div>
-				
-				
-				
-			 	<div>测试 ng transclude</div>
-			 	<div ><input type="text" ng-model="title" ng-value="title2" name="" id="" value="" /></div>
-			 	<div>顺便 测试 ng value <input type="text" ng-model="title2" name="" id="" value="" /></div>
-			 	<textarea name="" ng-model="text" rows="" cols=""></textarea>
-			 	<pend title="{{title}}" text="text"><span>{{text}}</span></pend>
-			 	<div ng-click="curTpl='tpl1'">测试 ng script click me </div>
-			 	<script type="text/ng-template" id="tpl1">
-			 		我是 模板 1
-			 	</script>
-			 	<div  ng-include="curTpl"></div>
-			 	<div id="test_anchorScroll">测试  anchorScrollProvider  服务 跳转到这里。</div>
-			 	
-			 	
+				<img src="images/yeoman.png" alt="" />
+				<img ng-src="images/yeoman.png"/>
 			</form>
-			<img ng-src="images/yeoman.png" ng-srcset="images/btn_icon_buy.png 2x"/>
 		</div>
 	</div>
 	<div class="scrollable-footer">

@@ -89,5 +89,8 @@ app.config(function($routeProvider) {
 		}).state("modal", {
 			url: '/modal',
 			templateUrl: 'views/modal.html'
-		})
+		}).state("user",{
+			url:"/user",
+			templateUrl:'views/user.html'
+		});
 	}]);
