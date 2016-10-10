@@ -8,7 +8,7 @@
  *
  * Main module of the application.
  */
-var app = angular
+window.app = angular
 	.module('angularMobileApp', [
 		'ngRoute',
 		'ui.router',
@@ -94,3 +94,9 @@ app.config(function($routeProvider) {
 			templateUrl:'views/user.html'
 		});
 	}]);
+	
+app.config(['$ocLazyLoadProvider',function($ocLazyLoadProvider){
+	$ocLazyLoadProvider.config({
+		loadedModules:['angularMobileApp']
+	})
+}]);

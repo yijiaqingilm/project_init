@@ -6,9 +6,12 @@ app.config(["$stateProvider", "$urlRouterProvider", function($stateProvider, $ur
 		controller: "angular_ng_controller",
 		resolve: {
 			loadMyRes: ["$ocLazyLoad", function($ocLazyLoad) {
-					return $ocLazyLoad.load([
-						{type:'js',path:"views/angular_ng/angular_ng.controller.js"}
-					]);
+				return $ocLazyLoad.load({
+					files: [{
+						type: 'js',
+						path: "views/angular_ng/angular_ng.controller.js"
+					}]
+				});
 			}]
 		}
 	});

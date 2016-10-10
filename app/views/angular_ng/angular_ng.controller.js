@@ -1,14 +1,10 @@
-"use strict";
 (function() {
-	var app = angular.module("angularMobileApp",['ngRoute',
-		'ui.router',
-		'mobile-angular-ui',
-		'mobile-angular-ui.gestures',
-		"ngAnimate",
-		"ngTouch",
-		'ui.bootstrap',
-		"commonModule",
-		"oc.lazyLoad"]);
+	"use strict";
+	angular.module("angularMobileApp");
+	console.log("why ")
+	console.log(app);
+	console.log("xx")
+
 	app.config(["$anchorScrollProvider", function($anchorScrollProvider) {
 		//console.log($anchorScrollProvider);
 		//$anchorScrollProvider.disableAutoScrolling();
@@ -17,7 +13,9 @@
 	var ctr2 = module2.controller("controller2", function($scope) {
 		$scope.name = "yijiaiqng";
 	})
-	var angular_ng_controller = app.controller("angular_ng_controller", ["$scope", "$location", "$anchorScroll", function($scope, $location, $anchorScroll) {
+	app.controller("angular_ng_controller", ["$scope", "$location", "$anchorScroll", angular_ng_controller]);
+
+	function angular_ng_controller($scope, $location, $anchorScroll) {
 		console.log("this si angular ng controller");
 
 		$scope.addAnimate = function() {
@@ -103,7 +101,7 @@
 
 		}
 
-	}]);
+	}
 	//angular.bootstrap(document.getElementById("div2"), ["module2"]);
 
 	app.directive("pend", [pend]);
@@ -160,7 +158,7 @@
 				this.method1 = function() {
 					console.log("wodetian")
 				}
-				this.myArr=[];
+				this.myArr = [];
 			}
 
 		}
@@ -171,9 +169,9 @@
 	function fractionNum() {
 		return {
 			restrict: 'A',
-			require: ['?^supperNum','fractionNum'],
+			require: ['?^supperNum', 'fractionNum'],
 			controller: function($scope) {
-				this.myCtrl="我的 ctrl";
+				this.myCtrl = "我的 ctrl";
 				console.log("那么 我的 的 controller  是否没用")
 			},
 			link: function(scope, elem, attrs, superCtrl) {
@@ -195,7 +193,5 @@
 			}
 		}
 	}
-
-	
 
 })();
