@@ -1,15 +1,23 @@
 "use strict";
 (function() {
-	var app = angular.module("angularMobileApp");
-	app.config(["$anchorScrollProvider",function($anchorScrollProvider){
-		console.log($anchorScrollProvider);
-		$anchorScrollProvider.disableAutoScrolling();
+	var app = angular.module("angularMobileApp",['ngRoute',
+		'ui.router',
+		'mobile-angular-ui',
+		'mobile-angular-ui.gestures',
+		"ngAnimate",
+		"ngTouch",
+		'ui.bootstrap',
+		"commonModule",
+		"oc.lazyLoad"]);
+	app.config(["$anchorScrollProvider", function($anchorScrollProvider) {
+		//console.log($anchorScrollProvider);
+		//$anchorScrollProvider.disableAutoScrolling();
 	}]);
 	var module2 = angular.module("module2", []);
 	var ctr2 = module2.controller("controller2", function($scope) {
 		$scope.name = "yijiaiqng";
 	})
-	var angular_ng_controller = app.controller("angular_ng_controller", ["$scope","$location","$anchorScroll", function($scope,$location,$anchorScroll) {
+	var angular_ng_controller = app.controller("angular_ng_controller", ["$scope", "$location", "$anchorScroll", function($scope, $location, $anchorScroll) {
 		console.log("this si angular ng controller");
 
 		$scope.addAnimate = function() {
@@ -88,15 +96,15 @@
 		console.log(my_null);
 		console.log(angular.isDefined(my_null));
 		console.log(angular.version);
-		
-		$scope.go_anchor=function(){
+
+		$scope.go_anchor = function() {
 			console.log("什么鬼？？")
 			$location.hash("test_anchorScroll");
-			
+
 		}
 
 	}]);
-	angular.bootstrap(document.getElementById("div2"), ["module2"]);
+	//angular.bootstrap(document.getElementById("div2"), ["module2"]);
 
 	app.directive("pend", [pend]);
 
@@ -105,10 +113,89 @@
 		return {
 			restrict: "EA",
 			transclude: 'true',
-			scope:{title:'@',text:'='},
+			scope: {
+				title: '@',
+				text: '='
+			},
 			template: '<ng-transclude></ng-transclude><div>hellose {{title}} 看看text{{text}}</div><ng-transclude></ng-transclude>'
 
 		};
 	}
+
+	app.directive("myDirective", [myDirective]);
+
+	function myDirective() {
+		console.log("在 这里我 创建 一个 自己的 自定义指令 用于测试");
+		return {
+			restrict: 'AE',
+			scope: {
+				action: '&',
+				textName: '='
+			},
+			template: '<div>{{textName}}<input type="text" ng-model="textName" /> <input type="button" value="click me" ng-click="action()"> lorem 10  lfjadgg,sadfgopjdf</div>',
+			link: function() {
+				console.log("这是我 传的 自动以指令的 link");
+			},
+			controller: function() {
+				console.log("这是我 传的 自动以指令的 控制器");
+			}
+		}
+	}
+
+	app.directive("supperNum", [supperNum]);
+
+	function supperNum() {
+		return {
+			restrict: "AE",
+			template: '<div>我是 超级 num</div>',
+			link: function(scope, elem, attr, controller) {
+				console.log("这是我的超级 num的 link");
+			},
+			controller: function($scope, $element, $attrs, $transclude) {
+				console.log("这是我的超级 num的 控制器");
+				$scope.myNum = function() {
+					console.log("调动 我的 my Num 方法");
+				}
+				this.a = "a";
+				this.method1 = function() {
+					console.log("wodetian")
+				}
+				this.myArr=[];
+			}
+
+		}
+	}
+
+	app.directive("fractionNum", [fractionNum]);
+
+	function fractionNum() {
+		return {
+			restrict: 'A',
+			require: ['?^supperNum','fractionNum'],
+			controller: function($scope) {
+				this.myCtrl="我的 ctrl";
+				console.log("那么 我的 的 controller  是否没用")
+			},
+			link: function(scope, elem, attrs, superCtrl) {
+				console.log(elem);
+				console.log("我调用了 supper NUm controller 吗");
+				console.log(superCtrl);
+				superCtrl[0].myArr.push("red");
+				elem.addClass("xx");
+				elem.bind("keyup", function() {
+					console.log(this.value);
+					console.log(this.value < 1 || this.value > 10)
+					if(this.value < 1 || this.value > 10) {
+						console.log("数字 不符合");
+						elem.addClass("border-bottom-red");
+					} else {
+						elem.removeClass("border-bottom-red");
+					}
+				});
+			}
+		}
+	}
+
+	
 
 })();
