@@ -15,7 +15,6 @@ window.app = angular
 		'mobile-angular-ui',
 		'mobile-angular-ui.gestures',
 		"ngAnimate",
-		"ngTouch",
 		'ui.bootstrap',
 		"commonModule",
 		"oc.lazyLoad"
