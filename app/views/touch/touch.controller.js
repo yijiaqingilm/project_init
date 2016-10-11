@@ -85,6 +85,70 @@
 				});
 			}
 		}
-	}])
+	}]);
+
+	app.directive("superMan", [superMan]);
+
+	function superMan() {
+		return {
+			restrict: 'E',
+			scope: {},
+			controller: function($scope, $element, $attrs) {
+				$scope.super = [];
+				this.addStrength = function() {
+					$scope.super.push("strenth");
+				}
+				this.addSpeed = function() {
+					$scope.super.push("speed");
+				}
+				this.addLight = function() {
+					$scope.super.push("light");
+				}
+			},
+			link: function(scope, element, attr, ctrl) {
+				element.bind("mouseenter", function() {
+					console.log(scope.super)
+				})
+			}
+		}
+	}
+
+	app.directive("strenth", [function() {
+		return {
+			restrict: 'A',
+			require: '^?superMan',
+			link: function(scope, elem, attr, superCtrl) {
+				superCtrl.addStrength();
+			}
+		}
+	}]);
+	app.directive("speed", [function() {
+		return {
+			restrict: 'A',
+			require: '^?superMan',
+			link: function(scope, elem, attr, superCtrl) {
+				superCtrl.addSpeed();
+			}
+		}
+	}]);
+	app.directive("light", [function() {
+		return {
+			restrict: 'A',
+			require: '^?superMan',
+			link: function(scope, elem, attr, superCtrl) {
+				superCtrl.addLight();
+			}
+		}
+	}]);
+
+	app.directive("testTitle", [function() {
+		return {
+			restrict: 'AE',
+			scope: {
+				innerTitle: '@title'
+			},
+			template: '<div>{{innerTitle}} 我的天</div>'
+		}
+	}]);
 
 })();
