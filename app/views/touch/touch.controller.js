@@ -13,6 +13,8 @@
 			console.log("touch right");
 			$scope.direction = "right";
 		}
+
+		$scope.items = ["我是内容1", "我是内容2", "我是内容3"];
 	}
 	app.directive("toucharea", ["$touch", function($touch) {
 		console.log($touch);
@@ -151,4 +153,49 @@
 		}
 	}]);
 
+	app.directive("accordion", [function() {
+		return {
+			restrict: 'AE',
+			scope: {},
+			controller: function($scope) {
+				$scope.myExpend = [];
+				this.addExpend = function(curExpend) {
+					$scope.myExpend.push(curExpend);
+				}
+				this.closeOther = function(curExpend) {
+					angular.forEach($scope.myExpend, function(expend) {
+						if(curExpend != expend) {
+							expend.isopen = false;
+						} else {
+							curExpend.isopen = !curExpend.isopen;
+						}
+					})
+				}
+			},
+			link: function(scope, elem, attrs, superCtrl) {
+
+			}
+		}
+	}]);
+
+	app.directive("expand", function() {
+		return {
+			restrict: 'AE',
+			scope: {
+				title: '@'
+			},
+			require: ['?^accordion'],
+			transclude: true,
+			template: '<div ng-click="showme()" class="btn-primary btn">{{title}}</div> \
+					  	<div ng-show="isopen" class=""><ng-transclude ></ng-transclude ></div>',
+			link: function(scope, elem, attrs, superCtrl) {
+				console.log(superCtrl);
+				scope.isopen = true;
+				superCtrl[0].addExpend(scope);
+				scope.showme = function() {
+					superCtrl[0].closeOther(scope);
+				}
+			}
+		}
+	})
 })();

@@ -8,6 +8,7 @@
  *
  * Main module of the application.
  */
+
 window.app = angular
 	.module('angularMobileApp', [
 		'ngRoute',
