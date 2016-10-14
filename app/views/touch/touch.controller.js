@@ -13,7 +13,7 @@
 			console.log("touch right");
 			$scope.direction = "right";
 		}
-
+		
 		$scope.items = ["我是内容1", "我是内容2", "我是内容3"];
 	}
 	app.directive("toucharea", ["$touch", function($touch) {
