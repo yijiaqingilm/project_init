@@ -11,7 +11,7 @@
 
 window.app = angular
 	.module('angularMobileApp', [
-		'ngRoute',
+		/*'ngRoute',*/
 		'ui.router',
 		'mobile-angular-ui',
 		'mobile-angular-ui.gestures',
@@ -21,7 +21,7 @@ window.app = angular
 		"oc.lazyLoad"
 
 	]);
-app.config(function($routeProvider) {
+app.config(function() {
 		/*$routeProvider
 			.when('/', {
 				templateUrl: 'views/main.html',
@@ -43,6 +43,7 @@ app.config(function($routeProvider) {
 		var config = {};
 		config.server = location.protocol + '//' + location.host;
 		$rootScope.config=config;
+		$rootScope.stateParams=$stateParams;
 
 	}])
 	.config(["$stateProvider", "$urlRouterProvider", function($stateProvider, $urlRouterProvider) {
