@@ -1,6 +1,6 @@
 {
-  "name": "angularmobile",
-  "private": true,
+  "name": "project_init",
+  "version": "1.1.1",
   "devDependencies": {
     "gulp": "^3.9.0",
     "gulp-autoprefixer": "2.3.1",
@@ -35,5 +35,24 @@
   },
   "scripts": {
     "test": "karma start test\\karma.conf.js"
-  }
+  },
+  "description": "zanwu",
+  "main": "gulpfile.js",
+  "directories": {
+    "test": "test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/yijiaqingilm/project_init.git"
+  },
+  "keywords": [
+    "test",
+    "jest"
+  ],
+  "author": "whatyi",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/yijiaqingilm/project_init/issues"
+  },
+  "homepage": "https://github.com/yijiaqingilm/project_init#readme"
 }
