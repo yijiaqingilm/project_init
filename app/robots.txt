@@ -2,4 +2,4 @@
 
 User-agent: *
 Disallow:
-我是主干 我进行了修改
+我在分支上进行了修改
